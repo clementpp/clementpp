@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+
+    <title>cl_ment - Picross</title>
+    <link rel="shortcut icon" href="src/favicon.png" type="image/png"/>
+    <link rel="stylesheet" href="picross.css" type="text/css"/>
+
+</head>
+
+
+
+<body>
+
+	<h1><a href="https://clementpp.github.io" class="links" style="text-decoration:none;" title="welcome">Cl<span style ="opacity:.3">é</span>ment !</a></h1>
+	<p id="legend">Bienvenue sur mon site personnel.</p>
+
+	<div class="box">
+		<div class="header">
+			Résoudre une grille de Picross
+		</div>
+		<div class="content">
+			<h2>Principe</h2>
+			<p>Le Picross, aussi appelé nonogram, est un jeu de logique, qui consiste à remplir une grille d'après les informations (chiffres) données pour chaque ligne et colonne. Une fois fini les cases "pleines" forment souvent un dessin.</p>
+			<p>Chaque chiffre représente un bloc. C'est-à-dire, x cases consécutives séparées des autres par au moins une case vide. Par exemple :</p>
+			<p>2 7 <code>| | | | | | | | | | |</code><br>
+			La ligne contient donc un bloc de 2 cases et un autre de 7 cases.<br>
+			2 7 <code>|o|o| |o|o|o|o|o|o|o|</code></p>
+			<p>Pour nous aider à résoudre les grilles on utilise des croix qui symbolisent les cases qui seront forcément vides. Celles-ci sont aussi importantes que les cases pleines pour résoudre.</p>
+			<p>Exemple :<br>
+			2 <code>| | | |o|o| | | | | |</code><br>
+			2 <code>|x|x|x|o|o|x|x|x|x|x|</code></p>
+			<p>Pour ce guide on utilisera une grille 10x10.<br>
+			Les cases pleines sont celles qui font parties du dessin, représentées ici par des "o".<br>
+			Les cases barrées sont celles qui ne font pas parties du dessin, représentées ici par des "x".<br>
+			Ce qui est vrai pour les lignes est vrai pour les colonnes.</p>
+			<h2>Où jouer</h2>
+			<p>Nitendo DS : Pricross DS (&#9829;)<br>
+			iPhone/Android : <a href="https://nonograms-katana.com/">Nonograms Katana</a><br>
+			En ligne : <a href="http://liouh.com/picross/">Liouh (Open Source)</a></p>
+			<h2>Techniques de résolution</h2>
+			<h3>Au départ</h3>
+			<p>La première chose à faire est de chercher quelles cases sont dans tous les cas pleines.</p>
+			<p>Sur une grille vide on commence par faire des hypothèses. D'abord que le bloc commence à une extrémité puis à l'autre, on en déduit que les cases communes sont pleines.</p>
+			<p>8 <code>| | | | | | | | | | |</code><br>
+			En partant de l'extrémité gauche :<br>
+			8 <code>|o|o|o|o|o|o|o|o| | |</code><br>
+			En partant de l'extrémité droite :<br>
+			8 <code>| | |o|o|o|o|o|o|o|o|</code><br>
+			On remarque donc que la zone commune est forcément pleines :<br>
+			8 <code>| | |o|o|o|o|o|o| | |</code></p>
+			<p>On pourra par la suite trouver de quel côté vont les 2 pleines restantes.<br>
+			Avec un peu d'habitude on peut le faire de tête : il faut laisser avant et après le complément à 10.<br>
+			ex : 10 - 8 = 2, donc on laisse 2 cases avant et après.</p>
+			<p>C'est aussi vrai pour les lignes avec plusieurs blocs, on laisse l'espace minimal d'une case entre chaque bloc :</p>
+			<p>3 4 <code>| | | | | | | | | | |</code><br>
+			3 4 <code>|o|o|o| |o|o|o|o| | |</code> En partant de la gauche<br>
+			3 4 <code>| | |o|o|o| |o|o|o|o|</code> En partant de la droite<br>
+			Et l'écart maximum entre ces 2 blocs :<br>
+			3 4 <code>|o|o|o| | | |o|o|o|o|</code></p>
+			<p>Il faut prendre en compte qu'il y a 3 cases vides dans la ligne, les blocs peuvent donc flotter entre ces 3 cases. A noter que plus il y a de blocs, plus il est difficile de les placer.
+			On a donc avec certitude :<br>
+			3 4 <code>| | |o| | | |o|o| | |</code></p>
+			<p>Astuce : si le nombre de cases restantes est &gt; au plus gros bloc alors aucune case ne peut être trouvé à ce niveau. S'il est &lt; à un bloc alors la différence entre les deux donne le nombre de cases qui peuvent être placées.<br>
+			Dans notre exemple, il y avait 2 cases restantes sur la fin. Nous avons donc pu placer 4-2=2 cases du bloc de 4 et 3-2=1 case du bloc de 3.</p>
+			<p>Les croix permettent de réduire la largeur de la grille et nous pouvons donc répéter cette étape à chaque fois qu'il y a une nouvelle croix à une extrémité.</p>
+			<h3>Une fois que nous avons des croix et des pleines</h3>
+			<p>Une fois cela fait pour toutes les lignes et colonnes, il faut chercher les déductions que l'on peut faire de ces cases sur les lignes ou colonnes qui les coupent. Les astuces suivantes nécessitent d'avoir au moins 1 pleine ou 1 croix sur la ligne.</p>
+			<h4>La ligne comporte un seul bloc :</h4>
+			<p>On en déduit que le bloc se situe autour de la case pleine, pour trouver l'amplitude maximale on imagine que la pleine est la dernière puis la première case du bloc.</p>
+			<p>3 <code>| | | | |o| | | | | |</code><br>
+			Si la pleine est la dernière<br>
+			3 <code>| | |o|o|o| | | | | |</code><br>
+			Si la pleine est la première<br>
+			3 <code>| | | | |o|o|o| | | |</code><br>
+			On peut mettre des croix dans les cases qui seront forcément vides.<br>
+			3 <code>|x|x| | |o| | | |x|x|</code></p>
+			<h4>Il y a une pleine à une extrémité, ou proche d'une extrémité :</h4>
+			<p>Si la case est contre l'extrémité, alors se sera forcément la première du bloc, on peut donc compléter le bloc en question. Le bloc étant fini, on met une croix après.</p>
+			<p>3 5 <code>|o| | | | | | | | | |</code><br>
+			3 5 <code>|o|o|o|x| | | | | | |</code></p>
+			<p>Nous avons réduit la largeur de la grille. Nous pouvons refaire la première étape sur le reste de la ligne avec les blocs restants.</p>
+			<p>3 5 <code>|o|o|o|x| | | | | | |</code><br>
+			3 5 <code>|o|o|o|x|o|o|o|o|o| |</code> Le plus à gauche<br>
+			3 5 <code>|o|o|o|x| |o|o|o|o|o|</code> Le plus à droite<br>
+			3 5 <code>|o|o|o|x| |o|o|o|o| |</code> La zone commune est forcément pleine</p>
+			<p>Si la pleine est proche de l'extrémité :<br>
+			Même logique, mais sans finir le bloc. On ne prend que les cases qui seront pleines que le bloc commence à l'extrémité ou non.</p>
+			<p>3 <code>| |o| | | | | | | | |</code><br>
+			3 <code>| |o|o| | | | | | | |</code></p>
+			<p>4 <code>| | |o| | | | | | | |</code><br>
+			4 <code>| | |o|o| | | | | | |</code></p>
+			<p>6 <code>| |o| | | | | | | | |</code><br>
+			6 <code>| |o|o|o|o|o| | | | |</code></p>
+			<p>Attention : dans ce cas nous ne pouvons pas placer de croix. Car nous ne savons pas si les cases pleines restantes sont avant ou après.</p>
+			<h4>Si nous avons une croix dans une ligne :</h4>
+			<p>2 4 <code>| | | |x| | | | | | |</code><br>
+			Dans ce cas, on voit que les 2 blocs ne peuvent pas être du même côté de la croix.<br>
+			2 4 <code>| |o| |x| | |o|o| | |</code><br>
+			Le 2 est donc à gauche de la croix, et le 4 à droite. En voyant que nous placer un bloc de 2 dans 3 cases, la case du milieu sera logiquement pleine.</p>
+			<h4>Si nous avons une pleine proche d'une extrémité :</h4>
+			<p>3 1 <code>| | | |o| | | | | | |</code><br>
+			Nous pouvons directement mettre croix à la première case. En effet, on sait que le premier bloc fait 3, or si la première case est pleine on aura forcément un bloc de 4. Il n'y a pas assez d'espace pour finir le premier bloc et commencer le second.<br>
+			3 1 <code>|x| | |o| | | | | | |</code></p>
+			<h4>Il est souvent utile de pouvoir identifier un bloc :</h4>
+			<p>2 1 <code>| | | | |o|o| | | | |</code><br>
+			Dans ce cas, les 2 pleines ne peuvent être que le premier bloc. Cela veut dire que toutes les cases avant sont vides.<br>
+			2 1 <code>|x|x|x|x|o|o|x| | | |</code></p>
+			<p>Autre exemple :<br>
+			1 1 2 1 <code>| | | | |o|o| | | | |</code><br>
+			1 1 2 1 <code>|o|x|o|x|o|o|x| | | |</code></p>
+			<h3>Hypothèses</h3>
+			<p>Dans certains cas, il est difficile ou impossible d'avancer. Il est alors possible de formuler des hypothèses pour essayer une option. Le mieux est de trouver un bloc ou on n'a que 2 choix possibles, en choisir un au hasard, et appliquer toutes les modifications qui en découlent. Si on arrive à une situation impossible, on en déduit que cette hypothèse est fausse et on a la certitude que l'autre est la bonne. Si aucune erreur ne survient c'est la bonne, on garde notre raisonnement.</p>
+			<h2>Voilà !</h2>
+			<p>Ces quelques règles permettent de résoudre 90% des Picross. Il ne reste plus qu'à jouer pour les intérioriser.</p>
+		</div>
+	</div>
+
+	<div class="bottom-bar">
+		<div class="bottom-link" id="first-link">Liens -> </div>
+		<a class="bottom-link" id="second-link" href="https://www.imdb.com/user/ur77896957/?ref_=nv_usr_prof_2" target="_blank">IMDb</a>
+		<a class="bottom-link" id="third-link" href="https://www.senscritique.com/Duvet" target="_blank">SensCritique</a>
+		<a class="bottom-link" id="fourth-link" href="https://anilist.co/user/clement0/" target="_blank">Anilist</a>
+		<a class="bottom-link" id="fifth-link" href="https://ilovelum.neocities.org" target="_blank">Neocities</a>
+		<a class="bottom-link" id="sixth-link" href="https://github.com/clementpp" target="_blank">Github</a>
+		<a class="bottom-link" id="seventh-link" href="https://userstyles.org/users/794886" target="_blank">Userstyles</a>
+		<a class="bottom-link" id="eighth-link" href="https://subscene.com/u/1322416" target="_blank">Subscene</a>
+		<a class="bottom-link" id="ninth-link" href="mailto:cocks@cock.email" target="_blank" title="si le serveur fonctionne..."><u>cocks@cock.email</u></a>
+	</div>
+
+</body>
+
+
+
+</html>

@@ -33,8 +33,8 @@ h1 {
 .box {
 	border: 2px solid #545c79;
 	background-color: white;
-	width: 670px;
-	margin: 30px auto;
+	width: 800px;
+	margin: 30px auto 70px;
 }
 
 .header {
@@ -49,6 +49,10 @@ h1 {
 }
 
 /* CONTENT */
+
+h2 {
+	text-align: center;
+}
 
 .content {
 	padding: 0 10px;
@@ -73,36 +77,17 @@ h1 {
 	color: #e57272;
 }
 
-/* POSTS */
+a {
 
-.postlist p {
-	margin: 9px auto;
-	width: 90%;
-	color: #707ba1;
-}
-
-.postlist p:not(:last-child) {
-	border-bottom: 2px dotted #626b8d;
-}
-
-.postlist a {
-	text-decoration: none;
-	margin-left: 20px;
-	color: #4c505a; 
-}
-
-.postlist a:hover {
-	color: #e57272;
 }
 
 /* MISC */
 
-#quote {
-	text-align: center;
-	font-family: Georgia, serif;
-	font-size: 25pt;
-	font-style: italic;
-	margin: 60px 0 25px 0;
+code {
+	background-color: #eceef6;
+	border-radius: 4px;
+	padding: 2px;
+	margin: 2px;
 }
 
 /* BAR */
